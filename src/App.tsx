@@ -1,57 +1,32 @@
 import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
+import logo from './img/upay-logo-1.png';
+import { Disclosure, Menu, Transition,Switch  } from '@headlessui/react'
+import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import './App.css';
+import { useState,Fragment } from 'react'
+import { Routes, Route,Link } from 'react-router-dom';
+import ProductDetail from './components/ProductDetail';
+import Navbar from './components/Navbar';
+import AddProduct from './components/AddProduct';
+import Products from './components/Products';
+
+
 
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
+    <div className="md:container md:mx-auto">
+
+      <Navbar/>
+      <Products/>
+
+    <Routes>
+      <Route path='/home' element={<App/>} />
+      <Route path='/detail' element={<ProductDetail/>} />
+      <Route path='/add' element={<AddProduct/>} />
+    </Routes>
+
+    </div>   
   );
 }
 
