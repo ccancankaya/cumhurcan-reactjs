@@ -15,7 +15,22 @@ export const getProducts=():ThunkAction<void,RootState,unknown,AnyAction>=>{
     }
 }
 
-export const getProductById=(product_id:number):ThunkAction<void,RootState,unknown,AnyAction>=>{
+export const getProductsByCategory=(category_name:string):ThunkAction<void,RootState,unknown,AnyAction>=>{
+    return async(dispatch,getState)=>{
+        if(getState().product.all_products.length===0){
+            const arr:ProductModel[]=[];
+            getState().product.all_products.map(product=>{
+                if(product.category===category_name){
+                    arr.push(product)
+                }
+            })
+            const response:ProductModel[]=arr
+            dispatch(productActions.setProductsByCategory(response))
+        }
+    }
+}
+
+export const getProductById=(product_id:any):ThunkAction<void,RootState,unknown,AnyAction>=>{
     return async(dispatch,getState)=>{
         const response:ProductModel=await ProductService.getById(product_id);
         dispatch(productActions.setSingleProduct(response));

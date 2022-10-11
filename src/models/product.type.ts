@@ -1,5 +1,5 @@
 export default interface ProductModel{
-    id?:any|null,
+    _id?:any|null,
     name:string,
     avatar:string,
     price:number,

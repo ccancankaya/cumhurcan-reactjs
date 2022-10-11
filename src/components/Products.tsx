@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Disclosure } from '@headlessui/react'
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
-import { getProducts, getProductById } from "../store/productActions";
+import { getProducts, getProductById,getProductsByCategory } from "../store/productActions";
 import { getCategories, getCategoryById } from "../store/categoryActions";
 
 const Products = () => {
@@ -10,6 +10,7 @@ const Products = () => {
     const dispatch = useAppDispatch();
     const products = useAppSelector(state => state.product.all_products);
     const categories = useAppSelector(state => state.category.all_categories);
+    const productsByCategories=useAppSelector(state=>state.product.productsByCategory);
 
 
     useEffect(() => {
@@ -17,7 +18,11 @@ const Products = () => {
         dispatch(getCategories())
     }, [dispatch])
 
-
+    const handleClick=(categoryName:string)=>{
+        
+       dispatch(getProductsByCategory(categoryName))
+        
+    }
     return (
         <div className="bg-white">
             <div className="grid grid-cols-6 gap-4">
@@ -27,7 +32,7 @@ const Products = () => {
                         {
                             categories.map((category) => (
                                 <div className="w-5/6 mx-2">
-                                    <p className="text-center font-mono text-lg"><Link to="/">{category.name}</Link></p>
+                                    <p className="text-center font-mono text-lg"><button onClick={()=>handleClick(category.name)}>{category.name}</button></p>
                                 </div>
                             ))
                         }
@@ -42,7 +47,7 @@ const Products = () => {
                             {
 
                                 products.map((product) => (
-                                    <div key={product.id} className="group relative">
+                                    <div key={product._id} className="group relative">
                                         <div className="min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none lg:h-80">
                                             <img
                                                 src={product.avatar}
@@ -53,10 +58,12 @@ const Products = () => {
                                         <div className="mt-4 flex justify-between">
                                             <div>
                                                 <h3 className="text-sm text-gray-700">
-                                                    <a href="#">
-                                                        <span aria-hidden="true" className="absolute inset-0" />
+                                                    <Link to={`/detail?id=${product._id}`}>
+                                                    <span aria-hidden="true" className="absolute inset-0" />
                                                         {product.name}
-                                                    </a>
+                                                    </Link>
+                                                        
+                                                    
                                                 </h3>
                                                 <p className="mt-1 text-sm text-gray-500">{product.description}</p>
                                             </div>
