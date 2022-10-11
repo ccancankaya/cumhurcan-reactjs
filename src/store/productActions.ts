@@ -36,3 +36,10 @@ export const getProductById=(product_id:any):ThunkAction<void,RootState,unknown,
         dispatch(productActions.setSingleProduct(response));
     }
 }
+
+export const addProduct=(product:any):ThunkAction<void,RootState,unknown,AnyAction>=>{
+    return async(dispatch,getState)=>{
+        const response:ProductModel=await ProductService.addProduct(product);
+        dispatch(productActions.addProduct(response));
+    }
+}

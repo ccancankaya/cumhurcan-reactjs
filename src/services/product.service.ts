@@ -11,7 +11,9 @@ export default {
         var response = await httpService.get(`/products/${product_id}`);
         return response.data.product;
     },
-    async addProduct(data: ProductModel) {
-        return httpService.post("/products", data)
+    async addProduct(data:any) {
+        var response=await httpService.post("/products",data);
+        console.log(response)
+        return response.data.product
     }
 }
