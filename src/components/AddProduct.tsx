@@ -38,7 +38,10 @@ const AddProduct = () => {
                     <Formik
                         initialValues={initialProduct}
                         onSubmit={(values, actions) => {
-                            dispatch(addProduct(JSON.stringify(values, null, 2)))
+                            // dispatch(addProduct(JSON.stringify(values, null, 2)))
+                            dispatch(addProduct(values))
+
+                            // console.log(values)
                             actions.setSubmitting(false);
                         }}
                     >

@@ -29,18 +29,17 @@ export const getProductById=(product_id:any):ThunkAction<void,RootState,unknown,
     }
 }
 
-export const addProduct=(product:any):ThunkAction<void,RootState,unknown,AnyAction>=>{
+export const addProduct=(product:ProductModel):ThunkAction<void,RootState,unknown,AnyAction>=>{
     return async(dispatch,getState)=>{
         const response=await ProductService.addProduct(product);
+        var temp:ProductModel[]=Object.assign([],getState().product.all_products)
         console.log(response)
         if(response.status.toString()==="Success"){
-            getState().product.all_products.push(response.data);
-            dispatch(productActions.addProduct(getState().product.all_products));
+            temp.push(response.data.product);
+            dispatch(productActions.addProduct(temp));
         }
-        var temp:ProductModel[]=Object.assign([],getState().product.all_products)
         
-        // temp.push(product)
-        console.log(temp.push(product))
+        temp.push(product)
         dispatch(productActions.addProduct(temp));
     }
 }
@@ -50,4 +49,12 @@ export const deleteProduct=(product_id:string):ThunkAction<void,RootState,unknow
         const response=getState().product.all_products.filter(({_id})=>_id!==product_id)
         dispatch(productActions.deleteProduct(response));
     } 
+}
+
+export const addProductToFavourite=(product:ProductModel):ThunkAction<void,RootState,unknown,AnyAction>=>{
+    return async(dispatch,getState)=>{
+        var temp:ProductModel[]=Object.assign([],getState().product.favouriteProducts)
+        temp.push(product);
+        dispatch(productActions.addFavouriteProduct(temp));
+    }
 }

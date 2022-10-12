@@ -13,7 +13,8 @@ const initialProductState: ProductArrayModel = {
         "category": "",
         "developerEmail":"" 
     },
-    productsByCategory:[]
+    productsByCategory:[],
+    favouriteProducts:[]
 }
 
 
@@ -35,6 +36,9 @@ const productSlice=createSlice({
         },
         deleteProduct(state,action:PayloadAction<ProductModel[]>){
             state.all_products=action.payload;
+        },
+        addFavouriteProduct(state,action:PayloadAction<ProductModel[]>){
+            state.favouriteProducts=action.payload;
         }
     }
 })
