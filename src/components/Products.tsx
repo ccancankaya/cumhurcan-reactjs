@@ -31,6 +31,7 @@ const Products = () => {
 
     const handleDelete = (product_id: string) => {
         dispatch(deleteProduct(product_id))
+        toast.error("Deleted product")
     }
 
     const handleFavourite=(product:ProductModel)=>{
@@ -47,7 +48,7 @@ const Products = () => {
             <ToastContainer />
             <div className="grid grid-cols-6 gap-4">
                 {/*Category section */}
-                <div className="mt-5">
+                <div className="mt-5 cat">
                     <div className="divide-y divide-slate-500">
                         {
                             categories.map((category) => (
