@@ -30,8 +30,11 @@ const productSlice=createSlice({
         setSingleProduct(state,action:PayloadAction<ProductModel>){
             state.single_product=action.payload;
         },
-        addProduct(state,action:PayloadAction<ProductModel>){
-            state.all_products.push(action.payload)
+        addProduct(state,action:PayloadAction<ProductModel[]>){
+            state.all_products=action.payload;
+        },
+        deleteProduct(state,action:PayloadAction<ProductModel[]>){
+            state.all_products=action.payload;
         }
     }
 })

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
     Formik,
     FormikHelpers,
@@ -22,6 +22,12 @@ const AddProduct = () => {
         "category": "",
         "developerEmail": ""
     }
+    const categories = useAppSelector(state => state.category.all_categories);
+
+    useEffect(() => {
+        dispatch(getCategories())
+    }, [dispatch])
+
     return (
         <div className="mt-10 sm:mt-0">
 
@@ -104,14 +110,20 @@ const AddProduct = () => {
                                                 Category
                                             </label>
                                             <Field
-                                                type="text"
-                                                name="category"
                                                 id="category"
-                                                autoComplete="given-name"
-                                                className="mt-1 block w-full rounded-md shadow-sm sm:text-xl"
-                                                style={{ "border": "1px solid black" }}
-
-                                            />
+                                                name="category"
+                                                as="select"
+                                                autoComplete="country-name"
+                                                className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                            >
+                                                {
+                                                    categories.map((category)=>(
+                                                        <option value={category.name} key={category.id}>{category.name}</option>
+                                                    ))
+                                                }
+                                                
+                                            </Field>
+                                           
                                         </div>
 
                                         <div className="col-span-6 sm:col-span-3">

@@ -16,17 +16,9 @@ export const getProducts=():ThunkAction<void,RootState,unknown,AnyAction>=>{
 }
 
 export const getProductsByCategory=(category_name:string):ThunkAction<void,RootState,unknown,AnyAction>=>{
-    return async(dispatch,getState)=>{
-        if(getState().product.all_products.length===0){
-            const arr:ProductModel[]=[];
-            getState().product.all_products.map(product=>{
-                if(product.category===category_name){
-                    arr.push(product)
-                }
-            })
-            const response:ProductModel[]=arr
-            dispatch(productActions.setProductsByCategory(response))
-        }
+    return async(dispatch,getState)=>{      
+        const response=getState().product.all_products.filter(({category})=>category===category_name)
+        dispatch(productActions.setProductsByCategory(response));
     }
 }
 
@@ -39,7 +31,23 @@ export const getProductById=(product_id:any):ThunkAction<void,RootState,unknown,
 
 export const addProduct=(product:any):ThunkAction<void,RootState,unknown,AnyAction>=>{
     return async(dispatch,getState)=>{
-        const response:ProductModel=await ProductService.addProduct(product);
-        dispatch(productActions.addProduct(response));
+        const response=await ProductService.addProduct(product);
+        console.log(response)
+        if(response.status.toString()==="Success"){
+            getState().product.all_products.push(response.data);
+            dispatch(productActions.addProduct(getState().product.all_products));
+        }
+        var temp:ProductModel[]=Object.assign([],getState().product.all_products)
+        
+        // temp.push(product)
+        console.log(temp.push(product))
+        dispatch(productActions.addProduct(temp));
     }
+}
+
+export const deleteProduct=(product_id:string):ThunkAction<void,RootState,unknown,AnyAction>=>{
+    return async(dispatch,getState)=>{
+        const response=getState().product.all_products.filter(({_id})=>_id!==product_id)
+        dispatch(productActions.deleteProduct(response));
+    } 
 }

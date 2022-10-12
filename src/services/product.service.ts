@@ -14,6 +14,6 @@ export default {
     async addProduct(data:any) {
         var response=await httpService.post("/products",data);
         console.log(response)
-        return response.data.product
+        return {"status":response.data.message,"data": response.data.product}
     }
 }
