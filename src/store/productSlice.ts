@@ -39,6 +39,13 @@ const productSlice=createSlice({
         },
         addFavouriteProduct(state,action:PayloadAction<ProductModel[]>){
             state.favouriteProducts=action.payload;
+            localStorage.setItem("favourites",JSON.stringify(state.favouriteProducts))
+        },
+        setFavouriteProducts(state,action:PayloadAction<ProductModel[]>){
+            state.favouriteProducts=action.payload;
+        },
+        deleteFavouriteProduct(state,action:PayloadAction<ProductModel[]>){
+            state.favouriteProducts=action.payload;
         }
     }
 })

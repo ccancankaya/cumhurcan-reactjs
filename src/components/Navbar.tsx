@@ -12,7 +12,9 @@ const Navbar=()=>{
     
       const navigation = [
         { name: 'Home', to:'/', current: true },
-        { name: 'Add Product', to:'/add', current: false }
+        { name: 'Add Product', to:'/add', current: false },
+        { name: 'My Favourites', to:'/favourites', current: false }
+
       ]
 
 

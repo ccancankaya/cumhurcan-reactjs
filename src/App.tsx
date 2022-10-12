@@ -9,6 +9,7 @@ import ProductDetail from './components/ProductDetail';
 import Navbar from './components/Navbar';
 import AddProduct from './components/AddProduct';
 import Products from './components/Products';
+import FavouriteProducts from './components/FavouriteProducts';
 
 
 
@@ -24,6 +25,7 @@ function App() {
       <Route path='/' element={<Products/>} />
       <Route path='/detail' element={<ProductDetail/>} />
       <Route path='/add' element={<AddProduct/>} />
+      <Route path='/favourites' element={<FavouriteProducts/>} />
     </Routes>
 
     </div>   
